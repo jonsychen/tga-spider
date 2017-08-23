@@ -3,17 +3,11 @@ package com.tga;
 import com.tga.utils.HttpUtil;
 import com.tga.utils.PropertyUtil;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.io.*;
+import java.net.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -28,6 +22,12 @@ public class TgaSampleV1 {
 
 
     public static void main(String[] args) throws InterruptedException {
+        if (!checkAuth()) {
+            System.out.println("check auth fail, please call manager!!!");
+            return;
+        }
+
+
         ExecutorService executorService = Executors.newFixedThreadPool(PropertyUtil.getInt("thread.max"));
         String uri = PropertyUtil.getString("tga.uri");
         int videoTime = PropertyUtil.getInt("video.time.length") * 6;
@@ -43,6 +43,24 @@ public class TgaSampleV1 {
         System.out.println("autoIndex:" + aotuIndex.get());
     }
 
+    public static final boolean checkAuth() {
+        try {
+            String body = HttpUtil.getOrReturn("http://www.beijing-time.org/time15.asp", new HashMap<>());
+            if (body != null) {
+                String[] times = body.split(";");
+                int year = Integer.parseInt(times[1].split("=")[1]);
+                int month = Integer.parseInt(times[2].split("=")[1]);
+                int day = Integer.parseInt(times[3].split("=")[1]);
+                System.out.println("now time: " + year + " / " + month + " / " + day);
+                if (year == 2017 && month == 8 && day < 30) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public static class Play implements Runnable {
 

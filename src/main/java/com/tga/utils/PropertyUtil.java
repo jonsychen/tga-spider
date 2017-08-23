@@ -1,7 +1,10 @@
 package com.tga.utils;
 
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 public class PropertyUtil {
@@ -16,8 +19,6 @@ public class PropertyUtil {
         FileInputStream fis = null;
 
         try {
-            //reader = new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream
-            // ("conf.properties"), "utf-8");
             String path = "";
             if (System.getProperty("os.name").toLowerCase().indexOf("wind") > -1) {
                 path = "E:\\conf.properties";
@@ -30,6 +31,14 @@ public class PropertyUtil {
             System.out.println("配置文件加载完成!!!");
         } catch (Exception e) {
             System.out.println("配置文件读取异常!!!");
+            System.out.printf("开始读取默认配置文件!!!");
+            try {
+                InputStreamReader reader = new InputStreamReader(Thread.currentThread().getContextClassLoader()
+                        .getResourceAsStream("conf.properties"), "utf-8");
+                props.load(reader);
+            } catch (IOException e1) {
+                System.out.println("默认配置文件读取失败!!!");
+            }
         } finally {
             try {
                 if (fis != null) {

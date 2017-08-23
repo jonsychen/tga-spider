@@ -3,11 +3,17 @@ package com.tga;
 import com.tga.utils.HttpUtil;
 import com.tga.utils.PropertyUtil;
 
-import java.io.*;
-import java.net.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -67,6 +73,7 @@ public class TgaSampleV1 {
         private String uri;
         private int videoTime;
         private ExecutorService executorService;
+        private Random random = new Random();
 
         public Play(String uri, int videoTime, ExecutorService executorService) {
             this.uri = uri;
@@ -164,10 +171,10 @@ public class TgaSampleV1 {
         public void forEachRequest(int seq) {
             try {
                 live_poll();
-                Thread.sleep(1000 * (new Random().nextInt(5) % (5 - 2 + 1) + 2));
+                Thread.sleep(1000 * getSec());
                 kvCommon("guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&ftime=" + System.currentTimeMillis() + "&vkey" +
                         "=FAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC96130868DCA0B7F73799B2F16218AC51D75D1933CB9611A60CAE23566E48CEB6E6DAB8B479ABA9&cnlID=124208501&Pwd=779660211&platform=1&BossId=3460");
-                Thread.sleep(1000 * (new Random().nextInt(5) % (5 - 2 + 1) + 2));
+                Thread.sleep(1000 * getSec());
                 kvCommon("SuperNodePort=0&errorCode=10000&prdLength=60&PeerServerIP=0&downSpeed=161&PeerServerPort=0&app=live&maxSpeed=0&CDNAbnormal=0&flashve" +
                         "r=WIN%2026%2E0%2E0%2E151&cnnTime=0&playtime=0&fplayerver=30200000&cmd=263&ispay=0&blockHasData=0&returnBitmapErr=0&reCnnCount=0&type=17&p" +
                         "layAd=0&ReqSNBlockOutRange=0&isuserpay=0&adstat=4&lookback=0&HashNotFinished=0&HttpDownlandSpeed=0&transtype=0&fullScreen=0&HttpDownSum=0&s" +
@@ -184,15 +191,19 @@ public class TgaSampleV1 {
                         .currentTimeMillis() + "&peerC" +
                         "ount=0&blockCount=0&progUrl=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&averPeerMeHealth=0&loadingTime=0&blockTime=0&St" +
                         "artP2P=0&switch=0&guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&pla=1&SuperNodeIP=0&fullecode=10000");
-                Thread.sleep(1000 * (new Random().nextInt(5) % (5 - 2 + 1) + 2));
+                Thread.sleep(1000 * getSec());
                 live_poll();
-                Thread.sleep(1000 * (new Random().nextInt(5) % (5 - 2 + 1) + 2));
+                Thread.sleep(1000 * getSec());
                 kvCommon("guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&ftime=" + System.currentTimeMillis() + "&vkey" +
                         "=FAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC96130868DCA0B7F73799B2F16218AC51D75D1933CB9611A60CAE23566E48CEB6E6DAB8B479ABA9&cnlID=124208501&Pwd=779660211&platform=1&BossId=3460");
-                Thread.sleep(1000 * (new Random().nextInt(5) % (5 - 2 + 1) + 2));
+                Thread.sleep(1000 * getSec());
             } catch (InterruptedException e) {
 
             }
+        }
+
+        public int getSec() {
+            return random.nextInt(5) % (5 - 2 + 1) + 2;
         }
 
         public void flashStream() {

@@ -31,7 +31,7 @@
                 </configuration>
             </plugin>
 
-            <!--<plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>appassembler-maven-plugin</artifactId>
                 <version>1.8</version>
@@ -48,11 +48,11 @@
                             <repositoryName>lib</repositoryName>
                             <configurationSourceDirectory>src/main/resources/</configurationSourceDirectory>
                             <configurationDirectory>conf</configurationDirectory>
-                            &lt;!&ndash;<logsDirectory>logs</logsDirectory>&ndash;&gt;
+                            <!--<logsDirectory>logs</logsDirectory>-->
                             <copyConfigurationDirectory>true</copyConfigurationDirectory>
                             <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
-                            <assembleDirectory>./target/tgaSample</assembleDirectory>
-                            <extraJvmArguments>-server -Dfile.encoding=gbk -Xms1024m -Xmx1024m
+                            <assembleDirectory>./target/tga-spider</assembleDirectory>
+                            <extraJvmArguments>-server -Dfile.encoding=gbk -Xms2024m -Xmx2024m
                                 -XX:+HeapDumpOnOutOfMemoryError
                             </extraJvmArguments>
 
@@ -62,14 +62,14 @@
                             </platforms>
                             <programs>
                                 <program>
-                                    <mainClass>com.frank.TgaSampleV1</mainClass>
+                                    <mainClass>com.tga.TgaSampleV1</mainClass>
                                     <name>startup</name>
                                 </program>
                             </programs>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
 
 
             <plugin>

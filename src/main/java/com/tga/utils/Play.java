@@ -291,9 +291,7 @@ public class Play implements Runnable {
         headers.put("Referer", uri_index);
         headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
         headers.put("X-Requested-With", "ShockwaveFlash/26.0.0.151");
-        HttpUtil.get("http://live.mobile.video.qq" +
-                ".com/fcgi-bin/live_poll?otype=json&qqlog=&guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&needmark=1&pollDataKey=pid%3D23415%26type%3D" +
-                "&markContext=last%3D0", headers);
+        HttpUtil.get("http://live.mobile.video.qq.com/fcgi-bin/live_poll?otype=json&pollDataKey=pid%3D36804%26type%3D&needmark=1&guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&qqlog=&markContext=last%3D0", headers);
     }
 
     /**
@@ -348,9 +346,11 @@ public class Play implements Runnable {
                /* if (i % 5 == 0) {
                     Thread.sleep(80);
                 }*/
-                if (bytesum >= totalSize) {
+               /* if (bytesum >= totalSize) {
+                    System.out.println("视频以达到上限...");
                     break;
-                }
+                }*/
+                break;
 //                System.out.println("下载字节:" + bytesum);
                 //i++;
             }

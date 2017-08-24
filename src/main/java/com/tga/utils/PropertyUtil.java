@@ -21,7 +21,7 @@ public class PropertyUtil {
         try {
             String path = "";
             if (System.getProperty("os.name").toLowerCase().indexOf("wind") > -1) {
-                path = "E:\\conf.properties";
+                path = "D:\\conf.properties";
             } else {
                 path = "/usr/tga/conf.properties";
             }

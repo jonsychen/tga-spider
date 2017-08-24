@@ -6,7 +6,8 @@
 
     <groupId>com.tga</groupId>
     <artifactId>tga-spider</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
+    
 
 
     <dependencies>
@@ -19,6 +20,7 @@
     </dependencies>
 
     <build>
+  <!--   <finalName>tga-spider</finalName> -->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -30,47 +32,6 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>appassembler-maven-plugin</artifactId>
-                <version>1.8</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>assemble</goal>
-                        </goals>
-
-                        <configuration>
-
-                            <repositoryLayout>flat</repositoryLayout>
-                            <repositoryName>lib</repositoryName>
-                            <configurationSourceDirectory>src/main/resources/</configurationSourceDirectory>
-                            <configurationDirectory>conf</configurationDirectory>
-                            <!--<logsDirectory>logs</logsDirectory>-->
-                            <copyConfigurationDirectory>true</copyConfigurationDirectory>
-                            <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
-                            <assembleDirectory>./target/tga-spider</assembleDirectory>
-                            <extraJvmArguments>-server -Dfile.encoding=gbk -Xms2024m -Xmx2024m
-                                -XX:+HeapDumpOnOutOfMemoryError
-                            </extraJvmArguments>
-
-                            <platforms>
-                                <platform>windows</platform>
-                                <platform>unix</platform>
-                            </platforms>
-                            <programs>
-                                <program>
-                                    <mainClass>com.tga.TgaSampleV1</mainClass>
-                                    <name>startup</name>
-                                </program>
-                            </programs>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -97,6 +58,33 @@
                 </executions>
             </plugin>
 
+			<plugin>
+				<groupId>com.jiujie</groupId>
+				<artifactId>code-hidding-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>proguard</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<obfuscate>true</obfuscate>
+					<attach>true</attach>
+					<injar>tga-spider-1.0-jar-with-dependencies.jar</injar>
+					<!-- <injars>classes</injars> -->
+					<attachArtifactClassifier>pg</attachArtifactClassifier>
+					<proguardInclude>${basedir}/proguard.conf</proguardInclude>
+					<outjar>tga-spider-pg.jar</outjar>
+					<libs>
+						<lib>${java.home}/lib/rt.jar</lib>
+						<lib>${java.home}/lib/jsse.jar</lib>
+					</libs>
+					<addMavenDescriptor>true</addMavenDescriptor>
+				</configuration>
+			</plugin>
         </plugins>
 
     </build>

@@ -1,6 +1,7 @@
 package com.tga.utils;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,22 +11,22 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Play implements Runnable {
     public static final String KV_URL = "http://btrace.video.qq.com/kvcollect";
-    private final String uri;
+    private final String uri_index;
     private double videoTime;
     //    private ExecutorService executorService;
-    private AtomicInteger aotuIndex;
+    private AtomicInteger autoIndex;
 
-    public Play(String uri, double videoTime, AtomicInteger aotuIndex) {
-        this.uri = uri;
+    public Play(String uri, double videoTime, AtomicInteger autoIndex) {
+        this.uri_index = uri;
         this.videoTime = videoTime;
 //        this.executorService = executorService;
-        this.aotuIndex = aotuIndex;
+        this.autoIndex = autoIndex;
     }
 
     @Override
     public void run() {
-        aotuIndex.incrementAndGet();
-        System.out.println(aotuIndex.get());
+        autoIndex.incrementAndGet();
+        System.out.println(autoIndex.get());
         indexPage();
 
         Map<String, String> headers2 = new HashMap<>();
@@ -106,7 +107,7 @@ public class Play implements Runnable {
         headers1.put("If-Modified-Since", LocalDateTime.now().format(DateTimeFormatter.ofPattern("E, d MMM yyyy HH:mm:ss 'GMT'")));
         headers1.put("Upgrade-Insecure-Requests", "1");
         headers1.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
-        HttpUtil.get(uri, headers1);
+        HttpUtil.get(uri_index, headers1);
     }
 
     public void forEachRequest(int seq) {
@@ -156,7 +157,7 @@ public class Play implements Runnable {
         headers.put("Cookie", "eas_sid=i1k4S7j7d7T0Z1n8l9c1x4p4k7; tvfe_boss_uuid=99daa20cfcb950ce; pac_uid=1_125826029; ptcz=2073df33296f910c4ebe6386dae0f389046bbcf92fca13397de446872d9c57a3; pt2gguin=o0125826029; pgv_pvi=3250939904; pgv_info=ssid=s4418331160; pgv_pvid=7924958374; o_cookie=125826029");
         headers.put("Host", "112.90.167.8080");
         headers.put("Origin", "http://imgcache.qq.com");
-        headers.put("Referer", uri);
+        headers.put("Referer", uri_index);
         headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
         headers.put("X-Requested-With", "ShockwaveFlash/26.0.0.151");
         HttpUtil.get("http://112.90.53.167:8080/FAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC9613086" +
@@ -209,7 +210,7 @@ public class Play implements Runnable {
         headers.put("Connection", "keep-alive");
         headers.put("Cookie", "eas_sid=i1k4S7j7d7T0Z1n8l9c1x4p4k7; tvfe_boss_uuid=99daa20cfcb950ce; pac_uid=1_125826029; ptcz=2073df33296f910c4ebe6386dae0f389046bbcf92fca13397de446872d9c57a3; pt2gguin=o0125826029; pgv_pvi=3250939904; pgv_info=ssid=s4418331160; pgv_pvid=7924958374; o_cookie=125826029");
         headers.put("Host", "live.mobile.video.qq.com");
-        headers.put("Referer", uri);
+        headers.put("Referer", uri_index);
         headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
         headers.put("X-Requested-With", "ShockwaveFlash/26.0.0.151");
         HttpUtil.get("http://live.mobile.video.qq" +
@@ -220,7 +221,7 @@ public class Play implements Runnable {
     /**
      * http下载
      */
-    public boolean httpDownload() {
+    public void httpDownload() {
         // 下载网络文件
         int bytesum = 0;
         int byteread = 0;
@@ -236,13 +237,12 @@ public class Play implements Runnable {
                     "tp%3A%2F%2Ftga.qq.com%2Fmatch%2F2017%2Fpc_index.html&apptype=live");
         } catch (MalformedURLException e1) {
             // TODO Auto-generated catch block
-            return false;
         }
         URLConnection conn;
         InputStream inStream = null;
         try {
             conn = url.openConnection();
-            conn.setConnectTimeout(1000 * 20);
+            conn.setConnectTimeout(1000 * 30);
             conn.addRequestProperty("Accept", "*/*");
             conn.addRequestProperty("Accept-Encoding", "gzip, deflate");
             conn.addRequestProperty("Accept-Language", "zh-CN,zh;q=0.8,en;q=0.6");
@@ -250,20 +250,23 @@ public class Play implements Runnable {
             conn.addRequestProperty("Cookie", "eas_sid=i1k4S7j7d7T0Z1n8l9c1x4p4k7; tvfe_boss_uuid=99daa20cfcb950ce; pac_uid=1_125826029; ptcz=2073df33296f910c4ebe6386dae0f389046bbcf92fca13397de446872d9c57a3; pt2gguin=o0125826029; pgv_pvi=3250939904; pgv_info=ssid=s4418331160; pgv_pvid=7924958374; o_cookie=125826029");
             conn.addRequestProperty("Host", "112.90.167.8080");
             conn.addRequestProperty("Origin", "http://imgcache.qq.com");
-            conn.addRequestProperty("Referer", uri);
+            conn.addRequestProperty("Referer", uri_index);
             conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
             conn.addRequestProperty("X-Requested-With", "ShockwaveFlash/26.0.0.151");
             inStream = conn.getInputStream();
 
             byte[] buffer = new byte[1204];
+            int i = 1;
             while ((byteread = inStream.read(buffer)) != -1) {
                 bytesum += byteread;
+               /* if (i % 5 == 0) {
+                    Thread.sleep(80);
+                }*/
+//                System.out.println("下载字节:" + bytesum);
+                //i++;
             }
-            return true;
-        } catch (FileNotFoundException e) {
-            return false;
-        } catch (IOException e) {
-            return false;
+        } catch (Exception e) {
+//            e.printStackTrace();
         } finally {
             try {
                 if (inStream != null)

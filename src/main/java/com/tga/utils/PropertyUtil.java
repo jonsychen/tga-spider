@@ -1,10 +1,7 @@
 package com.tga.utils;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Properties;
 
 public class PropertyUtil {
@@ -57,4 +54,9 @@ public class PropertyUtil {
     public static Integer getInt(String key) {
         return Integer.parseInt(getString(key));
     }
+
+    public static Double getDouble(String key) {
+        return Double.parseDouble(getString(key));
+    }
+
 }

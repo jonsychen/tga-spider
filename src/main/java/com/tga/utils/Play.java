@@ -1,30 +1,24 @@
 package com.tga.utils;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.io.*;
+import java.net.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Play implements Runnable{
+public class Play implements Runnable {
     public static final String KV_URL = "http://btrace.video.qq.com/kvcollect";
-    private String uri;
-    private int videoTime;
-    private ExecutorService executorService;
+    private final String uri;
+    private double videoTime;
+    //    private ExecutorService executorService;
     private AtomicInteger aotuIndex;
 
-    public Play(String uri, int videoTime, ExecutorService executorService,AtomicInteger aotuIndex) {
+    public Play(String uri, double videoTime, AtomicInteger aotuIndex) {
         this.uri = uri;
         this.videoTime = videoTime;
-        this.executorService = executorService;
+//        this.executorService = executorService;
         this.aotuIndex = aotuIndex;
     }
 
@@ -69,35 +63,35 @@ public class Play implements Runnable{
         kvCommon("guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&ftime=" + System.currentTimeMillis() + "&vkey=FAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC96130868DCA0B7F73799B2F16218AC51D75D1933CB9611A60CAE23566E48CEB6E6DAB8B479ABA9&cnlID=124208501&Pwd=779660211&platform=1&BossId=3460");
 
 
-        executorService.execute(() -> {
-            //下载视频线程
-            Thread stream = null;
-            if (videoTime > 0) {
-                stream = new Thread(() -> httpDownload());
-                stream.start();
-            }
+//        executorService.execute(() -> {
+        //下载视频线程
+        Thread stream = null;
+        if (videoTime > 0) {
+            stream = new Thread(() -> httpDownload());
+            stream.start();
+        }
 
-            //开始有规律播放进度
-            kvCommon("guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&iQQ=125826029&ctime=2017%2D08%2D19%2014%3A33%3A22%20544&adid=&sdtfrom=70202&surl=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&flashver=WIN%2026%2E0%2E0%2E151&sUrl=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&fplayerver=30200000&iTy=3007&sref=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&val=1261&tpay=0&sRef=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&ptag=&step=6&pid=8153EF79A1F508FF04C2F546B218549D1E0CA905&P2PVer=0&val1=0&p2pver=0&val2=0&BossId=3007&vurl=http%3A%2F%2F112%2E90%2E53%2E167%3A8080%2FFAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC96130868DCA0B7F73799B2F16218AC51D75D1933CB9611A60CAE23566E48CEB6E6DAB8B479ABA9%2F124208501%2Eflv%3Fcdncode%3D%252f18907E7BE0798990%252f%26time%3D1503124417%26cdn%3Dzijian%26sdtfrom%3Dv210221%26platform%3D70202%26butype%3D21%26scheduleflag%3D1%26buname%3Dqqlive%26vkey%3DFAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC96130868DCA0B7F73799B2F16218AC51D75D1933CB9611A60CAE23566E48CEB6E6DAB8B479ABA9&Pwd=881273072&sid=124208501");
-            kvCommon("SuperNodePort=0&errorCode=10000&prdLength=4&PeerServerIP=0&downSpeed=553&PeerServerPort=0&app=live&maxSpeed=7188&CDNAbnormal=0&flashver=WIN%2026%2E0%2E0%2E151&cnnTime=935&playtime=0&fplayerver=30200000&cmd=205&ispay=0&blockHasData=0&returnBitmapErr=0&reCnnCount=0&playerOnPlayTime=1804&playAd=0&ReqSNBlockOutRange=0&isuserpay=0&adstat=4&type=17&HashNotFinished=0&HttpDownlandSpeed=0&transtype=0&fullScreen=0&HttpDownSum=0&lookback=0&str%5Fparam1=zijian&seq=0&cnnPS=0&UDPDownlandSpeed=0&lookbackseq=0&durl=http%3A%2F%2F112%2E90%2E53%2E167%3A8080%2FFAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC96130868DCA0B7F73799B2F16218AC51D75D1933CB9611A60CAE23566E48CEB6E6DAB8B479ABA9%2F124208501%2Eflv%3Fcdncode%3D%252f18907E7BE0798990%252f%26time%3D1503124417%26cdn%3Dzijian%26sdtfrom%3Dv210221%26platform%3D70202%26butype%3D21%26scheduleflag%3D1%26buname%3Dqqlive%26vkey%3DFAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC96130868DCA0B7F73799B2F16218AC51D75D1933CB9611A60CAE23566E48CEB6E6DAB8B479ABA9&videopos=0&UDPDownSum=0&cdn=zijian&str%5Fparam2=112%2E90%2E53%2E167&sIp=&livepid=23415&UpdataSpeed=0&clientip=&iQQ=125826029&UDPUpSum=0&xserverip=&sBiz=zhibo&RtmfpInfo=0&sOp=webflash&PeerConnRate=0&live%5Ftype=8&iSta=0&svrCount=0&dsip=112%2E90%2E53%2E167&iTy=1991&p2pCount=0&iFlow=0&P2PReDelay=0&sRef=&playNo=8153EF79A1F508FF04C2F546B218549D1E0CA905&SuNodDelay=0&P2PVer=0&progid=124208501&averRemtime=0&viewid=&time=1503124402589&peerCount=0&blockCount=0&progUrl=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&averPeerMeHealth=0&loadingTime=326&blockTime=0&StartP2P=0&switch=0&guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&pla=1&SuperNodeIP=0&fullecode=10000");
-            live_poll();
-            kvCommon("vid=124208501&url=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&itype=52&str1=&ver=TencentPlayerLiveV3%2E2%2E0%2E00&int2=0&bid=pcvideo&iSta=7&val2=&int1=0&str3=&str2=1%2E4%2E6&rnd=8862&val=100&str4=8153EF79A1F508FF04C2F546B218549D1E0CA905&iTy=2052");
-            kvGetCommon("http://btrace.video.qq.com/kvcollect?sIp=&iQQ=&sBiz=&sOp=&iSta=0&iTy=2481&iFlow=0&sUrl=http%3A%2F%2Ftga.qq.com%2Fmatch%2F2017%2Fpc_index.html&sRef=&sPageId=&sPos=&step=3&val=41&val1=2&val2=604&val3=&val4=&val5=&apid=B76BFF3A72E04B5A5158D6AA5B628251CA4755D0&pid=8153EF79A1F508FF04C2F546B218549D1E0CA905&vid=124208501&platform=1&pversion=TencentPlayerLiveV3.2.0.00&version=1.4.6&bi=1&bt=0&idx=0&appid=0&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F60.0.3112.101%20Safari%2F537.36&adtype=2&vurl=http%3A%2F%2Flivew.l.qq.com%2Flivemsg%3Fty%3Dweb%26ad_type%3DTP%26pf%3Dout%26pt%3D0%26pc%3D0%26vid%3D124208501%26coverid%3D%26live%3D1%26from%3D0%26pu%3D0%26v%3DTencentPlayerLiveV3.2.0.00%26plugin%3D1.4.6%26speed%3D0%26vptag%3D%26pid%3D8153EF79A1F508FF04C2F546B218549D1E0CA905%26adaptor%3D2%26musictxt%3D%26chid%3D0%26mbid%3D%26guid%3D%26url%3Dhttp%3A%2F%2Ftga.qq.com%2Fmatch%2F2017%2Fpc_index.html%26refer%3D&reporttime=2017-08-19%2014:33:38%20372&bdua=0&admtype=0&adid=&guid=&ispip=0&random=3843");
-            kvCommon("vid=124208501&url=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&itype=52&str1=&ver=TencentPlayerLiveV3%2E2%2E0%2E00&int2=1&bid=pcvideo&iSta=7&val2=&int1=0&str3=&str2=1%2E4%2E6&rnd=5318&val=100&str4=8153EF79A1F508FF04C2F546B218549D1E0CA905&iTy=2052");
-            kvGetCommon("http://btrace.video.qq.com/kvcollect?sIp=&iQQ=&sBiz=&sOp=&iSta=0&iTy=2481&iFlow=0&sUrl=http%3A%2F%2Ftga.qq.com%2Fmatch%2F2017%2Fpc_index.html&sRef=&sPageId=&sPos=&step=3&val=68&val1=2&val2=604&val3=&val4=&val5=&apid=B76BFF3A72E04B5A5158D6AA5B628251CA4755D0&pid=8153EF79A1F508FF04C2F546B218549D1E0CA905&vid=124208501&platform=1&pversion=TencentPlayerLiveV3.2.0.00&version=1.4.6&bi=1&bt=0&idx=1&appid=0&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F60.0.3112.101%20Safari%2F537.36&adtype=2&vurl=http%3A%2F%2Flivew.l.qq.com%2Flivemsg%3Fty%3Dweb%26ad_type%3DTP%26pf%3Dout%26pt%3D0%26pc%3D0%26vid%3D124208501%26coverid%3D%26live%3D1%26from%3D0%26pu%3D0%26v%3DTencentPlayerLiveV3.2.0.00%26plugin%3D1.4.6%26speed%3D0%26vptag%3D%26pid%3D8153EF79A1F508FF04C2F546B218549D1E0CA905%26adaptor%3D2%26musictxt%3D%26chid%3D0%26mbid%3D%26guid%3D%26url%3Dhttp%3A%2F%2Ftga.qq.com%2Fmatch%2F2017%2Fpc_index.html%26refer%3D%26retry%3D1&reporttime=2017-08-19%2014:33:38%20444&bdua=0&admtype=0&adid=&guid=&ispip=0&random=9902");
-            try {
-                for (int i = 1; i < videoTime; i++) {
-                    forEachRequest(i);
-                }
-            } catch (Exception e) {
-
+        //开始有规律播放进度
+        kvCommon("guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&iQQ=125826029&ctime=2017%2D08%2D19%2014%3A33%3A22%20544&adid=&sdtfrom=70202&surl=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&flashver=WIN%2026%2E0%2E0%2E151&sUrl=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&fplayerver=30200000&iTy=3007&sref=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&val=1261&tpay=0&sRef=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&ptag=&step=6&pid=8153EF79A1F508FF04C2F546B218549D1E0CA905&P2PVer=0&val1=0&p2pver=0&val2=0&BossId=3007&vurl=http%3A%2F%2F112%2E90%2E53%2E167%3A8080%2FFAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC96130868DCA0B7F73799B2F16218AC51D75D1933CB9611A60CAE23566E48CEB6E6DAB8B479ABA9%2F124208501%2Eflv%3Fcdncode%3D%252f18907E7BE0798990%252f%26time%3D1503124417%26cdn%3Dzijian%26sdtfrom%3Dv210221%26platform%3D70202%26butype%3D21%26scheduleflag%3D1%26buname%3Dqqlive%26vkey%3DFAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC96130868DCA0B7F73799B2F16218AC51D75D1933CB9611A60CAE23566E48CEB6E6DAB8B479ABA9&Pwd=881273072&sid=124208501");
+        kvCommon("SuperNodePort=0&errorCode=10000&prdLength=4&PeerServerIP=0&downSpeed=553&PeerServerPort=0&app=live&maxSpeed=7188&CDNAbnormal=0&flashver=WIN%2026%2E0%2E0%2E151&cnnTime=935&playtime=0&fplayerver=30200000&cmd=205&ispay=0&blockHasData=0&returnBitmapErr=0&reCnnCount=0&playerOnPlayTime=1804&playAd=0&ReqSNBlockOutRange=0&isuserpay=0&adstat=4&type=17&HashNotFinished=0&HttpDownlandSpeed=0&transtype=0&fullScreen=0&HttpDownSum=0&lookback=0&str%5Fparam1=zijian&seq=0&cnnPS=0&UDPDownlandSpeed=0&lookbackseq=0&durl=http%3A%2F%2F112%2E90%2E53%2E167%3A8080%2FFAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC96130868DCA0B7F73799B2F16218AC51D75D1933CB9611A60CAE23566E48CEB6E6DAB8B479ABA9%2F124208501%2Eflv%3Fcdncode%3D%252f18907E7BE0798990%252f%26time%3D1503124417%26cdn%3Dzijian%26sdtfrom%3Dv210221%26platform%3D70202%26butype%3D21%26scheduleflag%3D1%26buname%3Dqqlive%26vkey%3DFAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC96130868DCA0B7F73799B2F16218AC51D75D1933CB9611A60CAE23566E48CEB6E6DAB8B479ABA9&videopos=0&UDPDownSum=0&cdn=zijian&str%5Fparam2=112%2E90%2E53%2E167&sIp=&livepid=23415&UpdataSpeed=0&clientip=&iQQ=125826029&UDPUpSum=0&xserverip=&sBiz=zhibo&RtmfpInfo=0&sOp=webflash&PeerConnRate=0&live%5Ftype=8&iSta=0&svrCount=0&dsip=112%2E90%2E53%2E167&iTy=1991&p2pCount=0&iFlow=0&P2PReDelay=0&sRef=&playNo=8153EF79A1F508FF04C2F546B218549D1E0CA905&SuNodDelay=0&P2PVer=0&progid=124208501&averRemtime=0&viewid=&time=1503124402589&peerCount=0&blockCount=0&progUrl=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&averPeerMeHealth=0&loadingTime=326&blockTime=0&StartP2P=0&switch=0&guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&pla=1&SuperNodeIP=0&fullecode=10000");
+        live_poll();
+        kvCommon("vid=124208501&url=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&itype=52&str1=&ver=TencentPlayerLiveV3%2E2%2E0%2E00&int2=0&bid=pcvideo&iSta=7&val2=&int1=0&str3=&str2=1%2E4%2E6&rnd=8862&val=100&str4=8153EF79A1F508FF04C2F546B218549D1E0CA905&iTy=2052");
+        kvGetCommon("http://btrace.video.qq.com/kvcollect?sIp=&iQQ=&sBiz=&sOp=&iSta=0&iTy=2481&iFlow=0&sUrl=http%3A%2F%2Ftga.qq.com%2Fmatch%2F2017%2Fpc_index.html&sRef=&sPageId=&sPos=&step=3&val=41&val1=2&val2=604&val3=&val4=&val5=&apid=B76BFF3A72E04B5A5158D6AA5B628251CA4755D0&pid=8153EF79A1F508FF04C2F546B218549D1E0CA905&vid=124208501&platform=1&pversion=TencentPlayerLiveV3.2.0.00&version=1.4.6&bi=1&bt=0&idx=0&appid=0&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F60.0.3112.101%20Safari%2F537.36&adtype=2&vurl=http%3A%2F%2Flivew.l.qq.com%2Flivemsg%3Fty%3Dweb%26ad_type%3DTP%26pf%3Dout%26pt%3D0%26pc%3D0%26vid%3D124208501%26coverid%3D%26live%3D1%26from%3D0%26pu%3D0%26v%3DTencentPlayerLiveV3.2.0.00%26plugin%3D1.4.6%26speed%3D0%26vptag%3D%26pid%3D8153EF79A1F508FF04C2F546B218549D1E0CA905%26adaptor%3D2%26musictxt%3D%26chid%3D0%26mbid%3D%26guid%3D%26url%3Dhttp%3A%2F%2Ftga.qq.com%2Fmatch%2F2017%2Fpc_index.html%26refer%3D&reporttime=2017-08-19%2014:33:38%20372&bdua=0&admtype=0&adid=&guid=&ispip=0&random=3843");
+        kvCommon("vid=124208501&url=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&itype=52&str1=&ver=TencentPlayerLiveV3%2E2%2E0%2E00&int2=1&bid=pcvideo&iSta=7&val2=&int1=0&str3=&str2=1%2E4%2E6&rnd=5318&val=100&str4=8153EF79A1F508FF04C2F546B218549D1E0CA905&iTy=2052");
+        kvGetCommon("http://btrace.video.qq.com/kvcollect?sIp=&iQQ=&sBiz=&sOp=&iSta=0&iTy=2481&iFlow=0&sUrl=http%3A%2F%2Ftga.qq.com%2Fmatch%2F2017%2Fpc_index.html&sRef=&sPageId=&sPos=&step=3&val=68&val1=2&val2=604&val3=&val4=&val5=&apid=B76BFF3A72E04B5A5158D6AA5B628251CA4755D0&pid=8153EF79A1F508FF04C2F546B218549D1E0CA905&vid=124208501&platform=1&pversion=TencentPlayerLiveV3.2.0.00&version=1.4.6&bi=1&bt=0&idx=1&appid=0&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F60.0.3112.101%20Safari%2F537.36&adtype=2&vurl=http%3A%2F%2Flivew.l.qq.com%2Flivemsg%3Fty%3Dweb%26ad_type%3DTP%26pf%3Dout%26pt%3D0%26pc%3D0%26vid%3D124208501%26coverid%3D%26live%3D1%26from%3D0%26pu%3D0%26v%3DTencentPlayerLiveV3.2.0.00%26plugin%3D1.4.6%26speed%3D0%26vptag%3D%26pid%3D8153EF79A1F508FF04C2F546B218549D1E0CA905%26adaptor%3D2%26musictxt%3D%26chid%3D0%26mbid%3D%26guid%3D%26url%3Dhttp%3A%2F%2Ftga.qq.com%2Fmatch%2F2017%2Fpc_index.html%26refer%3D%26retry%3D1&reporttime=2017-08-19%2014:33:38%20444&bdua=0&admtype=0&adid=&guid=&ispip=0&random=9902");
+        try {
+            for (int i = 1; i < videoTime; i++) {
+                forEachRequest(i);
             }
+        } catch (Exception e) {
 
-            //关闭下载线程
-            if (videoTime > 0 && stream != null) {
-                stream.stop();
-            }
-        });
+        }
+
+        //关闭下载线程
+        if (videoTime > 0 && stream != null) {
+            stream.stop();
+        }
+//        });
     }
 
     public void indexPage() {
@@ -118,10 +112,10 @@ public class Play implements Runnable{
     public void forEachRequest(int seq) {
         try {
             live_poll();
-            Thread.sleep(1000 * (new Random().nextInt(5) % (5 - 2 + 1) + 2));
+            sleep();
             kvCommon("guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&ftime=" + System.currentTimeMillis() + "&vkey" +
                     "=FAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC96130868DCA0B7F73799B2F16218AC51D75D1933CB9611A60CAE23566E48CEB6E6DAB8B479ABA9&cnlID=124208501&Pwd=779660211&platform=1&BossId=3460");
-            Thread.sleep(1000 * (new Random().nextInt(5) % (5 - 2 + 1) + 2));
+            sleep();
             kvCommon("SuperNodePort=0&errorCode=10000&prdLength=60&PeerServerIP=0&downSpeed=161&PeerServerPort=0&app=live&maxSpeed=0&CDNAbnormal=0&flashve" +
                     "r=WIN%2026%2E0%2E0%2E151&cnnTime=0&playtime=0&fplayerver=30200000&cmd=263&ispay=0&blockHasData=0&returnBitmapErr=0&reCnnCount=0&type=17&p" +
                     "layAd=0&ReqSNBlockOutRange=0&isuserpay=0&adstat=4&lookback=0&HashNotFinished=0&HttpDownlandSpeed=0&transtype=0&fullScreen=0&HttpDownSum=0&s" +
@@ -138,15 +132,19 @@ public class Play implements Runnable{
                     .currentTimeMillis() + "&peerC" +
                     "ount=0&blockCount=0&progUrl=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&averPeerMeHealth=0&loadingTime=0&blockTime=0&St" +
                     "artP2P=0&switch=0&guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&pla=1&SuperNodeIP=0&fullecode=10000");
-            Thread.sleep(1000 * (new Random().nextInt(5) % (5 - 2 + 1) + 2));
+            sleep();
             live_poll();
-            Thread.sleep(1000 * (new Random().nextInt(5) % (5 - 2 + 1) + 2));
+            sleep();
             kvCommon("guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&ftime=" + System.currentTimeMillis() + "&vkey" +
                     "=FAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC96130868DCA0B7F73799B2F16218AC51D75D1933CB9611A60CAE23566E48CEB6E6DAB8B479ABA9&cnlID=124208501&Pwd=779660211&platform=1&BossId=3460");
-            Thread.sleep(1000 * (new Random().nextInt(5) % (5 - 2 + 1) + 2));
+            sleep();
         } catch (InterruptedException e) {
 
         }
+    }
+
+    private void sleep() throws InterruptedException {
+        Thread.sleep(2 * 1000);
     }
 
     public void flashStream() {
@@ -158,7 +156,7 @@ public class Play implements Runnable{
         headers.put("Cookie", "eas_sid=i1k4S7j7d7T0Z1n8l9c1x4p4k7; tvfe_boss_uuid=99daa20cfcb950ce; pac_uid=1_125826029; ptcz=2073df33296f910c4ebe6386dae0f389046bbcf92fca13397de446872d9c57a3; pt2gguin=o0125826029; pgv_pvi=3250939904; pgv_info=ssid=s4418331160; pgv_pvid=7924958374; o_cookie=125826029");
         headers.put("Host", "112.90.167.8080");
         headers.put("Origin", "http://imgcache.qq.com");
-        headers.put("Referer", "http://tga.qq.com/match/2017/pc_game.html?game=cfm");
+        headers.put("Referer", uri);
         headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
         headers.put("X-Requested-With", "ShockwaveFlash/26.0.0.151");
         HttpUtil.get("http://112.90.53.167:8080/FAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC9613086" +
@@ -211,7 +209,7 @@ public class Play implements Runnable{
         headers.put("Connection", "keep-alive");
         headers.put("Cookie", "eas_sid=i1k4S7j7d7T0Z1n8l9c1x4p4k7; tvfe_boss_uuid=99daa20cfcb950ce; pac_uid=1_125826029; ptcz=2073df33296f910c4ebe6386dae0f389046bbcf92fca13397de446872d9c57a3; pt2gguin=o0125826029; pgv_pvi=3250939904; pgv_info=ssid=s4418331160; pgv_pvid=7924958374; o_cookie=125826029");
         headers.put("Host", "live.mobile.video.qq.com");
-        headers.put("Referer", "http://tga.qq.com/match/2017/pc_game.html?game=cfm");
+        headers.put("Referer", uri);
         headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
         headers.put("X-Requested-With", "ShockwaveFlash/26.0.0.151");
         HttpUtil.get("http://live.mobile.video.qq" +
@@ -222,19 +220,20 @@ public class Play implements Runnable{
     /**
      * http下载
      */
-    public static boolean httpDownload() {
+    public boolean httpDownload() {
         // 下载网络文件
         int bytesum = 0;
         int byteread = 0;
 
         URL url = null;
         try {
-            url = new URL("http://112.90.53.176:8080/689C6643F69A48A79C3CC0477F2D1EF9F659CA2E7B34B7104F3B30F0F0193C7348147D6BCA00564B4DF9E70B8A914CB" +
-                    "2DD0295CD19944C65DF5E2B045640C8419123B1A47AC7615E42360D65274E4352983D354289827CD3/124209101.flv?cdncode=%2f18907E7BE0798990%2f&" +
-                    "time=" + System.currentTimeMillis() / 1000 + "&cdn=zijian&sdtfrom=v210221&platform=70202&butype=21&scheduleflag=1&buname=qqlive&vkey" +
-                    "=689C6643F69A48A79C3CC0477F2D1EF9F659CA2" +
-                    "E7B34B7104F3B30F0F0193C7348147D6BCA00564B4DF9E70B8A914CB2DD0295CD19944C65DF5E2B045640C8419123B1A47AC7615E42360D65274E4352983D3" +
-                    "54289827CD3&guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&refer=http%3A%2F%2Ftga.qq.com%2Fmatch%2F2017%2Fpc_game.html%3Fgame%3Dcfm&apptype=live");
+            url = new URL("http://14.29.86.18:8080/A811C63C27A8096C4C11C3ECC3E38B7A24919EFC4AD512AF5228A131DF9B3" +
+                    "5E5BF69E36F6D8C1D48EE8AFEF0F82CEADC3B98EE838FE605F9FAA97F5CE032FEA27D099D79BDFA1F9D8EB90893B6A62174" +
+                    "771FCF7EDAEC3178/124208501.flv?cdncode=%2f18907E7BE0798990%2f&time=" + System.currentTimeMillis() / 1000 + "&cdn=zijian&sdtfrom=" +
+                    "v210221&platform=70202&butype=21&scheduleflag=1&buname=qqlive&vkey=A811C63C27A8096C4C11C3ECC3E38B7A" +
+                    "24919EFC4AD512AF5228A131DF9B35E5BF69E36F6D8C1D48EE8AFEF0F82CEADC3B98EE838FE605F9FAA97F5CE032FEA27D0" +
+                    "99D79BDFA1F9D8EB90893B6A62174771FCF7EDAEC3178&guid=B906B291C9FC0214455D1F82479E28708BFE6308&refer=ht" +
+                    "tp%3A%2F%2Ftga.qq.com%2Fmatch%2F2017%2Fpc_index.html&apptype=live");
         } catch (MalformedURLException e1) {
             // TODO Auto-generated catch block
             return false;
@@ -251,7 +250,7 @@ public class Play implements Runnable{
             conn.addRequestProperty("Cookie", "eas_sid=i1k4S7j7d7T0Z1n8l9c1x4p4k7; tvfe_boss_uuid=99daa20cfcb950ce; pac_uid=1_125826029; ptcz=2073df33296f910c4ebe6386dae0f389046bbcf92fca13397de446872d9c57a3; pt2gguin=o0125826029; pgv_pvi=3250939904; pgv_info=ssid=s4418331160; pgv_pvid=7924958374; o_cookie=125826029");
             conn.addRequestProperty("Host", "112.90.167.8080");
             conn.addRequestProperty("Origin", "http://imgcache.qq.com");
-            conn.addRequestProperty("Referer", "http://tga.qq.com/match/2017/pc_game.html?game=cfm");
+            conn.addRequestProperty("Referer", uri);
             conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
             conn.addRequestProperty("X-Requested-With", "ShockwaveFlash/26.0.0.151");
             inStream = conn.getInputStream();

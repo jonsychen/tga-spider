@@ -16,8 +16,6 @@ public class PropertyUtil {
         FileInputStream fis = null;
 
         try {
-            //reader = new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream
-            // ("conf.properties"), "utf-8");
             String path = "";
             if (System.getProperty("os.name").toLowerCase().indexOf("wind") > -1) {
                 path = "D:\\conf.properties";
@@ -30,6 +28,14 @@ public class PropertyUtil {
             System.out.println("配置文件加载完成!!!");
         } catch (Exception e) {
             System.out.println("配置文件读取异常!!!");
+            System.out.printf("开始读取默认配置文件!!!");
+            try {
+                InputStreamReader reader = new InputStreamReader(Thread.currentThread().getContextClassLoader()
+                        .getResourceAsStream("conf.properties"), "utf-8");
+                props.load(reader);
+            } catch (IOException e1) {
+                System.out.println("默认配置文件读取失败!!!");
+            }
         } finally {
             try {
                 if (fis != null) {
@@ -48,4 +54,9 @@ public class PropertyUtil {
     public static Integer getInt(String key) {
         return Integer.parseInt(getString(key));
     }
+
+    public static Double getDouble(String key) {
+        return Double.parseDouble(getString(key));
+    }
+
 }

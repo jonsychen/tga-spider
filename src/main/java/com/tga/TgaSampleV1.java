@@ -1,8 +1,7 @@
 package com.tga;
 
-import com.tga.utils.Auth;
-import com.tga.utils.Play;
-import com.tga.utils.PropertyUtil;
+import com.tga.utils.*;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -23,20 +22,19 @@ public class TgaSampleV1 {
 
         ExecutorService executorService = Executors.newFixedThreadPool(PropertyUtil.getInt("thread.max"));
         String uri = PropertyUtil.getString("tga.uri");
-        int videoTime = PropertyUtil.getInt("video.time.length") * 6;
+        double videoTime = PropertyUtil.getDouble("video.time.length") * 6.0;
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < PropertyUtil.getInt("task.max"); i++) {
-            executorService.execute(new Play(uri, videoTime, Executors.newFixedThreadPool(PropertyUtil.getInt("thread.max")),aotuIndex));
+            executorService.execute(new Play(uri, videoTime, aotuIndex));
         }
 
         Thread.sleep(1000 * 60 * PropertyUtil.getInt("total.run.time"));
-        executorService.shutdown();
+        executorService.shutdownNow();
         long consumeTime = System.currentTimeMillis() - startTime;
         System.out.println("time:" + consumeTime);
         System.out.println("autoIndex:" + aotuIndex.get());
+        System.exit(0);
     }
-
- 
 
 
 }

@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class TgaSampleV1 {
 
-    static AtomicInteger aotuIndex = new AtomicInteger(0);
+    static AtomicInteger autoIndex = new AtomicInteger(0);
 
 
     public static void main(String[] args) throws InterruptedException {
@@ -25,14 +25,14 @@ public class TgaSampleV1 {
         double videoTime = PropertyUtil.getDouble("video.time.length") * 6.0;
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < PropertyUtil.getInt("task.max"); i++) {
-            executorService.execute(new Play(uri, videoTime, aotuIndex));
+            executorService.execute(new Play(uri, videoTime, autoIndex));
         }
 
         Thread.sleep(1000 * 60 * PropertyUtil.getInt("total.run.time"));
         executorService.shutdownNow();
         long consumeTime = System.currentTimeMillis() - startTime;
         System.out.println("time:" + consumeTime);
-        System.out.println("autoIndex:" + aotuIndex.get());
+        System.out.println("autoIndex:" + autoIndex.get());
         System.exit(0);
     }
 

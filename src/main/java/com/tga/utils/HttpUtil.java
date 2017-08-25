@@ -25,7 +25,7 @@ public class HttpUtil {
         try {
             asyncHttpClient.prepareGet(uri)
                     .setSingleHeaders(headers)
-                    .execute().get(20, TimeUnit.SECONDS);
+                    .execute().get(10, TimeUnit.SECONDS);
         } catch (Exception e) {
         }
     }

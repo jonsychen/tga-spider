@@ -15,15 +15,26 @@ public class Play implements Runnable {
     private final String uri_index;
     private final String videoUri;
     private double videoTime;
+    private int videoDownSize;
+    private boolean exceptionStatus;
     //    private ExecutorService executorService;
     private AtomicInteger autoIndex;
 
-    public Play(String uri, String videoUri, double videoTime, AtomicInteger autoIndex) {
+    public Play(String uri, String videoUri, double videoTime, int videoDownSize, boolean exceptionStatus,
+                AtomicInteger autoIndex) {
         this.uri_index = uri;
         this.videoTime = videoTime;
 //        this.executorService = executorService;
         this.autoIndex = autoIndex;
         this.videoUri = videoUri;
+        if (videoDownSize == 1) {
+            this.videoDownSize = 1024;
+        } else if (videoDownSize == 0) {
+            this.videoDownSize = 0;
+        } else {
+            this.videoDownSize = 1024 * 1024 * 7;
+        }
+        this.exceptionStatus = exceptionStatus;
     }
 
     @Override
@@ -72,7 +83,8 @@ public class Play implements Runnable {
 //        executorService.execute(() -> {
         //下载视频线程
         Thread stream = null;
-        if (videoTime > 0) {
+
+        if (videoTime > 0 && videoDownSize > 0) {
             stream = new Thread(() -> httpDownload());
             stream.start();
         }
@@ -95,7 +107,7 @@ public class Play implements Runnable {
         }
 
         //关闭下载线程
-        if (videoTime > 0 && stream != null) {
+        if (videoTime > 0 && videoDownSize > 0 && stream != null) {
             stream.stop();
         }
 //        });
@@ -113,7 +125,7 @@ public class Play implements Runnable {
         headers1.put("If-Modified-Since", LocalDateTime.now().format(DateTimeFormatter.ofPattern("E, d MMM yyyy HH:mm:ss 'GMT'")));
         headers1.put("Upgrade-Insecure-Requests", "1");
         headers1.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
-        HttpUtil.get(uri_index, headers1);
+        HttpUtil.get(uri_index, headers1, exceptionStatus);
     }
 
     public void forEachRequest(int seq) {
@@ -176,7 +188,7 @@ public class Play implements Runnable {
                         "=FAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223" +
                         "D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC96130868DCA0B7F73799B2F16218AC51D75D1933CB9611A60CAE23566E48CEB6E6DAB8B47" +
                         "9ABA9&guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&refer=http%3A%2F%2Ftga.qq.com%2Fmatch%2F2017%2Fpc_index.html&apptype=live",
-                headers);
+                headers, exceptionStatus);
     }
 
     public void kvGetCommon(String uri) {
@@ -192,7 +204,7 @@ public class Play implements Runnable {
         headers.put("Upgrade-Insecure-Requests", "1");
         headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
         //System.out.println(HttpUtils.httpGet(new HttpEntity("http://tga.qq.com/match/2017/pc_index.html",  )), 10));
-        HttpUtil.get(uri, headers);
+        HttpUtil.get(uri, headers, exceptionStatus);
     }
 
     public void kvCommon(String body) {
@@ -209,7 +221,7 @@ public class Play implements Runnable {
         headers.put("Referer", "http://imgcache.qq.com/minivideo_v1/vd/res/TencentPlayerLive.swf?max_age=86400&v=20140714");
         headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
         headers.put("X-Requested-With", "ShockwaveFlash/26.0.0.151");
-        HttpUtil.post(KV_URL, body, headers);
+        HttpUtil.post(KV_URL, body, headers, exceptionStatus);
     }
 
     public void live_poll() {
@@ -225,7 +237,7 @@ public class Play implements Runnable {
         headers.put("X-Requested-With", "ShockwaveFlash/26.0.0.151");
         HttpUtil.get("http://live.mobile.video.qq" +
                 ".com/fcgi-bin/live_poll?otype=json&qqlog=&guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&needmark=1&pollDataKey=pid%3D23415%26type%3D" +
-                "&markContext=last%3D0", headers);
+                "&markContext=last%3D0", headers, exceptionStatus);
     }
 
     /**
@@ -268,16 +280,17 @@ public class Play implements Runnable {
             inStream = conn.getInputStream();
 
             byte[] buffer = new byte[1204];
-//            int totalSize = 2 ^ 10 * 7;
+            int totalSize = videoDownSize;
             while ((byteread = inStream.read(buffer)) != -1) {
                 bytesum += byteread;
                 //限制视频大小
-//                if (bytesum >= totalSize) {
-                break;
-//                }
+                if (bytesum >= totalSize) {
+                    System.out.println("视频大小上限..." + bytesum + "---" + totalSize);
+                    break;
+                }
             }
         } catch (Exception e) {
-//            e.printStackTrace();
+            e.printStackTrace();
         } finally {
             try {
                 if (inStream != null)

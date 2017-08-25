@@ -59,4 +59,12 @@ public class PropertyUtil {
         return Double.parseDouble(getString(key));
     }
 
+    public static Boolean getBoolean(String key) {
+        try {
+            return Boolean.parseBoolean(getString(key));
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

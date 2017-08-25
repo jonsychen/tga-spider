@@ -238,7 +238,12 @@ public class Play implements Runnable {
         String host2 = null;
 
         try {
-            String tmpUrl = Auth.getVideoUrl();
+            String tmpUrl = "http://qqlive.hdl.lxdns.com:80/124219102.flv?cdncode=%2f18907E7BE0798990%2f&" +
+                    "time=" + System.currentTimeMillis()
+                    / 1000 + "&cdn=wangsu&sdtfrom=v210221&platform=70202&butype=21&scheduleflag=1&buname" +
+                    "=qqlive" +
+                    "&vkey=25DD5AAB6E0B2DD12D815F1FCDDEB54395BABA0E6FEA235C37F87D65F1D880F7D10D3" +
+                    "2520B7D784C898AB0A76E0122F8580E63CEFD2FAF284CBAE7379C6597116E345220E24AA882D6D2EC66366EC49AB3A538C70ED14194&guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&refer=http%3A%2F%2Ftga.qq.com%2Fmatch%2F2017%2Fpc_index.html&apptype=live";
             String host = tmpUrl.substring(8);
             host2 = host.substring(0, host.indexOf('/'));
 
@@ -265,13 +270,13 @@ public class Play implements Runnable {
             inStream = conn.getInputStream();
 
             byte[] buffer = new byte[1204];
-            int totalSize = 2 ^ 20 * 7;
+//            int totalSize = 2 ^ 10 * 7;
             while ((byteread = inStream.read(buffer)) != -1) {
                 bytesum += byteread;
                 //限制视频大小
-                if (bytesum >= totalSize) {
-                    break;
-                }
+//                if (bytesum >= totalSize) {
+                break;
+//                }
             }
         } catch (Exception e) {
             e.printStackTrace();

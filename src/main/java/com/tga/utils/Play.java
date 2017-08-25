@@ -13,15 +13,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Play implements Runnable {
     public static final String KV_URL = "http://btrace.video.qq.com/kvcollect";
     private final String uri_index;
+    private final String videoUri;
     private double videoTime;
     //    private ExecutorService executorService;
     private AtomicInteger autoIndex;
 
-    public Play(String uri, double videoTime, AtomicInteger autoIndex) {
+    public Play(String uri, String videoUri, double videoTime, AtomicInteger autoIndex) {
         this.uri_index = uri;
         this.videoTime = videoTime;
 //        this.executorService = executorService;
         this.autoIndex = autoIndex;
+        this.videoUri = videoUri;
     }
 
     @Override
@@ -238,12 +240,8 @@ public class Play implements Runnable {
         String host2 = null;
 
         try {
-            String tmpUrl = "http://qqlive.hdl.lxdns.com:80/124219102.flv?cdncode=%2f18907E7BE0798990%2f&" +
-                    "time=" + System.currentTimeMillis()
-                    / 1000 + "&cdn=wangsu&sdtfrom=v210221&platform=70202&butype=21&scheduleflag=1&buname" +
-                    "=qqlive" +
-                    "&vkey=25DD5AAB6E0B2DD12D815F1FCDDEB54395BABA0E6FEA235C37F87D65F1D880F7D10D3" +
-                    "2520B7D784C898AB0A76E0122F8580E63CEFD2FAF284CBAE7379C6597116E345220E24AA882D6D2EC66366EC49AB3A538C70ED14194&guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&refer=http%3A%2F%2Ftga.qq.com%2Fmatch%2F2017%2Fpc_index.html&apptype=live";
+            String tmpUrl = videoUri + "&guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&refer=http%3A%2F%2Ftga.qq" +
+                    ".com%2Fmatch%2F2017%2Fpc_index.html&apptype=live";
             String host = tmpUrl.substring(8);
             host2 = host.substring(0, host.indexOf('/'));
 

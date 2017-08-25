@@ -45,6 +45,15 @@ public class Auth {
     public static void main(String[] args) throws InterruptedException, ExecutionException, TimeoutException, IOException {
         String url = "http://qqlive.hdl.lxdns.com:80/124219102.flv?cdncode=%2f18907E7BE0798990%2f&time=1503638985&cdn=wangsu&sdtfrom=v210221&platform=70202&butype=21&scheduleflag=1&buname=qqlive&vkey=25DD5AAB6E0B2DD12D815F1FCDDEB54395BABA0E6FEA235C37F87D65F1D880F7D10D32520B7D784C898AB0A76E0122F8580E63CEFD2FAF284CBAE7379C6597116E345220E24AA882D6D2EC66366EC49AB3A538C70ED14194";
 //        url.substring()url.indexOf("time")
+        int index1 = url.indexOf("time");
+        System.out.println();
+
+        url = url.substring(0, index1 + 5)+System.currentTimeMillis()/1000+url.substring(index1 + 15, url.length() -
+                1);
+
+        System.out.println(url.indexOf("guid"));
+
+
     }
 
 

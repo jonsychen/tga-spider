@@ -15,7 +15,9 @@ public class TgaSampleV1 {
 
 
     public static void main(String[] args) throws InterruptedException {
-        if (!Auth.checkAuth()) {
+        boolean exceptionStatus = PropertyUtil.getBoolean("exception.status");
+        int videoDownSize = PropertyUtil.getInt("video.down.size");
+        if (!Auth.checkAuth(exceptionStatus)) {
             System.out.println("check auth fail, please call manager!!!");
             return;
         }
@@ -29,7 +31,7 @@ public class TgaSampleV1 {
         double videoTime = PropertyUtil.getDouble("video.time.length") * 6.0;
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < PropertyUtil.getInt("task.max"); i++) {
-            executorService.execute(new Play(uri,videoUri, videoTime, autoIndex));
+            executorService.execute(new Play(uri, videoUri, videoTime, videoDownSize, exceptionStatus, autoIndex));
         }
 
         Thread.sleep(1000 * 60 * PropertyUtil.getInt("total.run.time"));

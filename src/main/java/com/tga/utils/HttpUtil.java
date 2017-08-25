@@ -27,7 +27,7 @@ public class HttpUtil {
                     .setSingleHeaders(headers)
                     .execute().get(10, TimeUnit.SECONDS);
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -39,7 +39,7 @@ public class HttpUtil {
                     .setSingleHeaders(headers)
                     .execute().get(20, TimeUnit.SECONDS);
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 }

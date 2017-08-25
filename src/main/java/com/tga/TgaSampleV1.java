@@ -22,10 +22,14 @@ public class TgaSampleV1 {
 
         ExecutorService executorService = Executors.newFixedThreadPool(PropertyUtil.getInt("thread.max"));
         String uri = PropertyUtil.getString("tga.uri");
+        String videoUri = PropertyUtil.getString("video.uri");
+        videoUri = videoUri.substring(0, videoUri.indexOf("time") + 5) + System.currentTimeMillis() / 1000 +
+                videoUri.substring(videoUri.indexOf("time") + 15, videoUri.length() - 1);
+
         double videoTime = PropertyUtil.getDouble("video.time.length") * 6.0;
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < PropertyUtil.getInt("task.max"); i++) {
-            executorService.execute(new Play(uri, videoTime, autoIndex));
+            executorService.execute(new Play(uri,videoUri, videoTime, autoIndex));
         }
 
         Thread.sleep(1000 * 60 * PropertyUtil.getInt("total.run.time"));

@@ -14,11 +14,11 @@ public class HttpUtil {
     private static final AsyncHttpClient asyncHttpClient = new DefaultAsyncHttpClient();
 
 
-    public static String getOrReturn(String uri, Map<String, String> headers, boolean exceptionStatus) {
+    public static String getOrReturn(String uri, Map<String, String> headers, boolean exceptionStatus, int timeout) {
         try {
             return asyncHttpClient.prepareGet(uri)
                     .setSingleHeaders(headers)
-                    .execute().get(20, TimeUnit.SECONDS).getResponseBody();
+                    .execute().get(timeout, TimeUnit.SECONDS).getResponseBody();
         } catch (Exception e) {
             if (exceptionStatus) {
                 e.printStackTrace();
@@ -27,11 +27,11 @@ public class HttpUtil {
         return null;
     }
 
-    public static void get(String uri, Map<String, String> headers, boolean exceptionStatus) {
+    public static void get(String uri, Map<String, String> headers, boolean exceptionStatus, int timeout) {
         try {
             asyncHttpClient.prepareGet(uri)
                     .setSingleHeaders(headers)
-                    .execute().get(10, TimeUnit.SECONDS);
+                    .execute().get(timeout, TimeUnit.SECONDS);
         } catch (Exception e) {
             if (exceptionStatus) {
                 e.printStackTrace();
@@ -40,12 +40,12 @@ public class HttpUtil {
     }
 
 
-    public static void post(String url, String body, Map<String, String> headers, boolean exceptionStatus) {
+    public static void post(String url, String body, Map<String, String> headers, boolean exceptionStatus, int timeout) {
         try {
             asyncHttpClient.preparePost(url)
                     .setBody(body)
                     .setSingleHeaders(headers)
-                    .execute().get(20, TimeUnit.SECONDS);
+                    .execute().get(timeout, TimeUnit.SECONDS);
         } catch (Exception e) {
             if (exceptionStatus) {
                 e.printStackTrace();

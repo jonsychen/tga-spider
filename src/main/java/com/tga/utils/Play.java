@@ -262,7 +262,9 @@ public class Play implements Runnable {
 
             url = new URL(tmpUrl);
         } catch (Exception e1) {
-            e1.printStackTrace();
+            if (exceptionStatus) {
+                e1.printStackTrace();
+            }
             // TODO Auto-generated catch block
         }
         URLConnection conn;

@@ -17,10 +17,11 @@ public class Play implements Runnable {
     private double videoTime;
     private int videoDownSize;
     private boolean exceptionStatus;
+    private int timeout;
     //    private ExecutorService executorService;
     private AtomicInteger autoIndex;
 
-    public Play(String uri, String videoUri, double videoTime, int videoDownSize, boolean exceptionStatus,
+    public Play(String uri, String videoUri, double videoTime, int videoDownSize, int timeout, boolean exceptionStatus,
                 AtomicInteger autoIndex) {
         this.uri_index = uri;
         this.videoTime = videoTime;
@@ -35,6 +36,7 @@ public class Play implements Runnable {
             this.videoDownSize = 1024 * 1024 * 7;
         }
         this.exceptionStatus = exceptionStatus;
+        this.timeout = timeout;
     }
 
     @Override
@@ -125,7 +127,7 @@ public class Play implements Runnable {
         headers1.put("If-Modified-Since", LocalDateTime.now().format(DateTimeFormatter.ofPattern("E, d MMM yyyy HH:mm:ss 'GMT'")));
         headers1.put("Upgrade-Insecure-Requests", "1");
         headers1.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
-        HttpUtil.get(uri_index, headers1, exceptionStatus);
+        HttpUtil.get(uri_index, headers1, exceptionStatus, timeout);
     }
 
     public void forEachRequest(int seq) {
@@ -188,7 +190,7 @@ public class Play implements Runnable {
                         "=FAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223" +
                         "D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC96130868DCA0B7F73799B2F16218AC51D75D1933CB9611A60CAE23566E48CEB6E6DAB8B47" +
                         "9ABA9&guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&refer=http%3A%2F%2Ftga.qq.com%2Fmatch%2F2017%2Fpc_index.html&apptype=live",
-                headers, exceptionStatus);
+                headers, exceptionStatus, timeout);
     }
 
     public void kvGetCommon(String uri) {
@@ -204,7 +206,7 @@ public class Play implements Runnable {
         headers.put("Upgrade-Insecure-Requests", "1");
         headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
         //System.out.println(HttpUtils.httpGet(new HttpEntity("http://tga.qq.com/match/2017/pc_index.html",  )), 10));
-        HttpUtil.get(uri, headers, exceptionStatus);
+        HttpUtil.get(uri, headers, exceptionStatus, timeout);
     }
 
     public void kvCommon(String body) {
@@ -221,7 +223,7 @@ public class Play implements Runnable {
         headers.put("Referer", "http://imgcache.qq.com/minivideo_v1/vd/res/TencentPlayerLive.swf?max_age=86400&v=20140714");
         headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
         headers.put("X-Requested-With", "ShockwaveFlash/26.0.0.151");
-        HttpUtil.post(KV_URL, body, headers, exceptionStatus);
+        HttpUtil.post(KV_URL, body, headers, exceptionStatus, timeout);
     }
 
     public void live_poll() {
@@ -237,7 +239,7 @@ public class Play implements Runnable {
         headers.put("X-Requested-With", "ShockwaveFlash/26.0.0.151");
         HttpUtil.get("http://live.mobile.video.qq" +
                 ".com/fcgi-bin/live_poll?otype=json&qqlog=&guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&needmark=1&pollDataKey=pid%3D23415%26type%3D" +
-                "&markContext=last%3D0", headers, exceptionStatus);
+                "&markContext=last%3D0", headers, exceptionStatus, timeout);
     }
 
     /**

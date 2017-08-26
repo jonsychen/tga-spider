@@ -169,7 +169,7 @@ public class Play implements Runnable {
     }
 
     private void sleep() throws InterruptedException {
-        Thread.sleep(2 * 1000);
+//        Thread.sleep(2 * 1000);
     }
 
     public void flashStream() {

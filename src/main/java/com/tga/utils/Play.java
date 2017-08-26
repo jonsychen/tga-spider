@@ -294,7 +294,9 @@ public class Play implements Runnable {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            if (exceptionStatus) {
+                e.printStackTrace();
+            }
         } finally {
             try {
                 if (inStream != null)

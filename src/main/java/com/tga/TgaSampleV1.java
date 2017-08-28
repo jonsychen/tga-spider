@@ -27,7 +27,7 @@ public class TgaSampleV1 {
         String uri = PropertyUtil.getString("tga.uri");
         String videoUri = PropertyUtil.getString("video.uri");
         videoUri = videoUri.substring(0, videoUri.indexOf("time") + 5) + System.currentTimeMillis() / 1000 +
-                videoUri.substring(videoUri.indexOf("time") + 15, videoUri.length() - 1);
+                videoUri.substring(videoUri.indexOf("time") + 15, videoUri.length());
 
         double videoTime = PropertyUtil.getDouble("video.time.length") * 6.0;
         long startTime = System.currentTimeMillis();

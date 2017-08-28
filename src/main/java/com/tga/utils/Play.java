@@ -73,7 +73,8 @@ public class Play implements Runnable {
         kvCommon("guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&iQQ=125826029&ctime=" + cTimeStr() + "&adid=&sdtfrom=70202&surl" +
                 "=" + uri_index + "&flashver=WIN%2026%2E0%2E0%2E151&sUrl=" + uri_index + "&fplayerver=30200000&iTy" +
                 "=3007&sref=" + uri_index + "&val=0&tpay=0&sRef=" + uri_index + "" +
-                "&ptag=&step=3&pid=8153EF79A1F508FF04C2F546B218549D1E0CA905&P2PVer=0&val1=0&p2pver=0&val2=0&BossId=3007&vurl=&Pwd=881273072&sid=124208501");
+                "&ptag=&step=3&pid=8153EF79A1F508FF04C2F546B218549D1E0CA905&P2PVer=0&val1=0&p2pver=0&val2=0&BossId" +
+                "=3007&vurl=&Pwd=881273072&sid=" + sId);
         kvCommon("vid=124208501&url=" + uri_index + "&itype=50&str1=&ver=TencentPlayerLiveV3%2E2%2E0%2E00&int2=0&bid" +
                 "=pcvideo&iSta=7&val2=&int1=0&str3=&str2=1%2E4%2E6&rnd=750&val=100&str4=8153EF79A1F508FF04C2F546B218549D1E0CA905&iTy=2052");
         kvGetCommon("http://btrace.video.qq" +
@@ -108,7 +109,8 @@ public class Play implements Runnable {
                 "ntPlayerLiveV3%2E2%2E0%2E00%26cKey%3DQsQm9wVDil0Ga1N9CMxu99mxavGxXdbY6K5jazeM0nGFLUPgJtv6jg77uPlW8Xi0u" +
                 "N19LfJIjdz6EwkwB%2DKUypCCJvsATBjNWumBKBd%5FVUUttGobl730%5F%2D5qPNlBE6BFRzqLZB%2DmEO1wyiKZOl5JCMGq%2DUE" +
                 "%2DEh2X%5FKImXl4Mr6L3u1X7ONectZKB1622ltGMBMWyP%2Db0i1qqFjCVs7sOYLZBHBYOJi0wCrN%2DJnbVX%5FYHjXCPTPAPwZs" +
-                "JWjgnLbWEh%5FmdKV%5Fpxp0wsouN4bepKokoNi39SnB6zpbFmd72PK5P8pK2NXaXJRipBl6rsrueUT175w&Pwd=881273072&sid=124208501");
+                "JWjgnLbWEh%5FmdKV%5Fpxp0wsouN4bepKokoNi39SnB6zpbFmd72PK5P8pK2NXaXJRipBl6rsrueUT175w&Pwd=881273072" +
+                "&sid="+sId);
         kvCommon("guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&ftime=" + timestampMill() +
                 "&vkey=" + vKey + "&cnlID=124208501&Pwd=779660211&platform=1&BossId=3460");
 

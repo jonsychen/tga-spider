@@ -33,7 +33,7 @@ public class TgaSampleV1 {
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < PropertyUtil.getInt("task.max"); i++) {
             executorService.execute(new Play(uri, videoUri, videoTime, videoDownSize, httpTimeout, exceptionStatus,
-                    autoIndex, Executors.newFixedThreadPool(PropertyUtil.getInt("thread.max") * 2)));
+                    autoIndex, Executors.newFixedThreadPool(1)));
         }
 
         Thread.sleep(1000 * 60 * PropertyUtil.getInt("total.run.time"));

@@ -28,7 +28,7 @@ public class PropertyUtil {
             System.out.println("配置文件加载完成!!!");
         } catch (Exception e) {
             System.out.println("配置文件读取异常!!!");
-            System.out.printf("开始读取默认配置文件!!!");
+            System.out.println("开始读取默认配置文件!!!");
             try {
                 InputStreamReader reader = new InputStreamReader(Thread.currentThread().getContextClassLoader()
                         .getResourceAsStream("conf.properties"), "utf-8");
@@ -65,6 +65,17 @@ public class PropertyUtil {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println
+                ("87C3662E3D189C2AAC82113B860F5ABF3E37746EEACBAF26E0F7C84F11CD75F52290880B0D6C5381A60227D4E86FB90B181A64F5640127F25A88476E7FD0C101A9DA0427E8E74D8D1770EE4C7A7D337B2DE0211757A842BA".length());
+
+        String url = "http://112.90.53.167:8080/87C3662E3D189C2AAC82113B860F5ABF3E37746EEACBAF26E0F7C84F11CD75F52290880B0D6C5381A60227D4E86FB90B181A64F5640127F25A88476E7FD0C101A9DA0427E8E74D8D1770EE4C7A7D337B2DE0211757A842BA/124208501.flv?cdncode=%2f18907E7BE0798990%2f&time=1503925914&cdn=zijian&sdtfrom=v210221&platform=70202&butype=21&scheduleflag=1&buname=qqlive&vkey=87C3662E3D189C2AAC82113B860F5ABF3E37746EEACBAF26E0F7C84F11CD75F52290880B0D6C5381A60227D4E86FB90B181A64F5640127F25A88476E7FD0C101A9DA0427E8E74D8D1770EE4C7A7D337B2DE0211757A842BA";
+        int index = url.indexOf("vkey");
+        System.out.println(url.substring(index + 5, index + 5 + 176));
+        int flv = url.indexOf("flv");
+        System.out.println(url.substring(flv - 10, flv - 1));
     }
 
 }

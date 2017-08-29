@@ -29,11 +29,11 @@ public class TgaSampleV1 {
         videoUri = videoUri.substring(0, videoUri.indexOf("time") + 5) + System.currentTimeMillis() / 1000 +
                 videoUri.substring(videoUri.indexOf("time") + 15, videoUri.length());
 
-        double videoTime = PropertyUtil.getDouble("video.time.length") * 6.0;
+        double videoTime = PropertyUtil.getDouble("video.time.length");
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < PropertyUtil.getInt("task.max"); i++) {
             executorService.execute(new Play(uri, videoUri, videoTime, videoDownSize, httpTimeout, exceptionStatus,
-                    autoIndex, Executors.newFixedThreadPool(1)));
+                    autoIndex, PropertyUtil.getString("http.cookie"), Executors.newFixedThreadPool(1)));
         }
 
         Thread.sleep(1000 * 60 * PropertyUtil.getInt("total.run.time"));

@@ -75,12 +75,13 @@ public class Play implements Runnable {
                 "=3007&sref=" + uri_index + "&val=0&tpay=0&sRef=" + uri_index + "" +
                 "&ptag=&step=3&pid=8153EF79A1F508FF04C2F546B218549D1E0CA905&P2PVer=0&val1=0&p2pver=0&val2=0&BossId" +
                 "=3007&vurl=&Pwd=881273072&sid=" + sId);
-        kvCommon("vid=124208501&url=" + uri_index + "&itype=50&str1=&ver=TencentPlayerLiveV3%2E2%2E0%2E00&int2=0&bid" +
+        kvCommon("vid=" + sId + "&url=" + uri_index + "&itype=50&str1=&ver=TencentPlayerLiveV3%2E2%2E0%2E00&int2=0&bid" +
                 "=pcvideo&iSta=7&val2=&int1=0&str3=&str2=1%2E4%2E6&rnd=750&val=100&str4=8153EF79A1F508FF04C2F546B218549D1E0CA905&iTy=2052");
         kvGetCommon("http://btrace.video.qq" +
                 ".com/kvcollect?sIp=&iQQ=&sBiz=&sOp=&iSta=0&iTy=2481&iFlow=0&sUrl=" + uri_index + "&sRef=&sPageId=&sPos=&step=3" +
                 "&val=56&val1=2&val2=604&val3=&val4=&val5=&apid=155E48AB2E6A5122F3D9A9FC50378CCCB08B3313&pid" +
-                "=8153EF79A1F508FF04C2F546B218549D1E0CA905&vid=124208501&platform=1&pversion=TencentPlayerLiveV3.2.0.00&version=1.4.6&bi=1&bt=0&idx=0" +
+                "=8153EF79A1F508FF04C2F546B218549D1E0CA905&vid="+sId+"&platform=1&pversion=TencentPlayerLiveV3.2.0.00" +
+                "&version=1.4.6&bi=1&bt=0&idx=0" +
                 "&appid=0&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)" +
                 "%20Chrome%2F60.0.3112.101%20Safari%2F537.36&adtype=0&vurl=http%3A%2F%2Flivew.l.qq" +
                 ".com%2Flivemsg%3Fty%3Dweb%26ad_type%3DLD%7CKB%26rfid%3D%26pf%3Dout%26pt%3D0%26pc%3D0%26vid%3D124208501%26coverid%3D%26live%3D1" +
@@ -110,7 +111,7 @@ public class Play implements Runnable {
                 "N19LfJIjdz6EwkwB%2DKUypCCJvsATBjNWumBKBd%5FVUUttGobl730%5F%2D5qPNlBE6BFRzqLZB%2DmEO1wyiKZOl5JCMGq%2DUE" +
                 "%2DEh2X%5FKImXl4Mr6L3u1X7ONectZKB1622ltGMBMWyP%2Db0i1qqFjCVs7sOYLZBHBYOJi0wCrN%2DJnbVX%5FYHjXCPTPAPwZs" +
                 "JWjgnLbWEh%5FmdKV%5Fpxp0wsouN4bepKokoNi39SnB6zpbFmd72PK5P8pK2NXaXJRipBl6rsrueUT175w&Pwd=881273072" +
-                "&sid="+sId);
+                "&sid=" + sId);
         kvCommon("guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&ftime=" + timestampMill() +
                 "&vkey=" + vKey + "&cnlID=124208501&Pwd=779660211&platform=1&BossId=3460");
 

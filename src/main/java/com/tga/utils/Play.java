@@ -105,7 +105,7 @@ public class Play implements Runnable {
                 "=TencentPlayerLiveV3%2E2%2E0%2E00&cip=&dip=zijian&cky=QsQm9wVDil0Ga1N9CMxu99mxavGxXdbY6K5jazeM0nGFLUPgJtv6jg77uPlW8Xi0uN19LfJIjdz6EwkwB%2DKUypCCJvsATBjNWumBKBd%5FVUUttGobl730%5F%2D5qPNlBE6BFRzqLZB%2DmEO1wyiKZOl5JCMGq%2DUE%2DEh2X%5FKImXl4Mr6L3u1X7ONectZKB1622ltGMBMWyP%2Db0i1qqFjCVs7sOYLZBHBYOJi0wCrN%2DJnbVX%5FYHjXCPTPAPwZsJWjgnLbWEh%5FmdKV%5Fpxp0wsouN4bepKokoNi39SnB6zpbFmd72PK5P8pK2NXaXJRipBl6rsrueUT175w&iTy=2595&vky=FAB0FC75C2CBB6F0FD01CC3CD5DD86D8B118E1223D547D071D9B1BD14E7046850699ADC06E6BD3DB6AC4E456DB26A1DEDC96130868DCA0B7F73799B2F16218AC51D75D1933CB9611A60CAE23566E48CEB6E6DAB8B479ABA9&sdt=70202");
         kvCommon("guid=4622487A6699E4F92E2A083A12D25E5899B7CE21&iQQ=125826029&ctime=" + cTimeStr() +
                 "&adid=&sdtfrom=70202&surl=" + uri_index + "&flashver=WIN%2026%2E0%2E0%2E151&sUrl=" + uri_index + "&fplayerver" +
-                "=30200000&iTy=3007&sref=http%3A%2F%2Ftga%2Eqq%2Ecom%2Fmatch%2F2017%2Fpc%5Findex%2Ehtml&val=309&tpay" +
+                "=30200000&iTy=3007&sref=" + uri_index + "&val=309&tpay" +
                 "=0&sRef=" + uri_index + "&ptag=&step=1100&pid=8153EF79A1F508FF04C2F546B218549D1E0CA905&P2PVer=0&val1=0&p2pver" +
                 "=0&val2=0&BossId=3007&vurl=http%3A%2F%2Finfo%2Ezb%2Evideo%2Eqq%2Ecom%2F%3Fvip%5Fstatus%3D0%26browser" +
                 "%3Dchrome%26sdtfrom%3D70202%26host%3D" + uri_index +

@@ -7,11 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
-/**
- * Created by frank_zhao on 2017/8/23.
- *
- * @apiNote Jackson相关操作
- */
+
 public class JsonUtil {
 
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();

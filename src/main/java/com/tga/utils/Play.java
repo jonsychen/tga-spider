@@ -18,14 +18,12 @@ public class Play implements Runnable {
     private int videoDownSize;
     private boolean exceptionStatus;
     private int timeout;
-    //    private ExecutorService executorService;
     private AtomicInteger autoIndex;
 
     public Play(String uri, String videoUri, double videoTime, int videoDownSize, int timeout, boolean exceptionStatus,
                 AtomicInteger autoIndex) {
         this.uri_index = uri;
         this.videoTime = videoTime;
-//        this.executorService = executorService;
         this.autoIndex = autoIndex;
         this.videoUri = videoUri;
         if (videoDownSize == 1) {

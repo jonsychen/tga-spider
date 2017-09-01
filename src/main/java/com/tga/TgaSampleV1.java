@@ -6,9 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Created by frank_zhao on 2017/8/19.
- */
+
 public class TgaSampleV1 {
 
     static AtomicInteger autoIndex = new AtomicInteger(0);
@@ -24,7 +22,7 @@ public class TgaSampleV1 {
         }
 
         ExecutorService executorService = Executors.newFixedThreadPool(PropertyUtil.getInt("thread.max"));
-        String uri = PropertyUtil.getString("tga.uri");
+        String uri = "http://tga.qq.com/match/2017/pc_index.html";
         String videoUri = PropertyUtil.getString("video.uri");
         videoUri = videoUri.substring(0, videoUri.indexOf("time") + 5) + System.currentTimeMillis() / 1000 +
                 videoUri.substring(videoUri.indexOf("time") + 15, videoUri.length() - 1);

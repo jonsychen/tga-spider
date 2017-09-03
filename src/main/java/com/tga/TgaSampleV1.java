@@ -6,9 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Created by frank_zhao on 2017/8/19.
- */
+
 public class TgaSampleV1 {
 
     static AtomicInteger autoIndex = new AtomicInteger(0);

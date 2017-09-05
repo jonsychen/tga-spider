@@ -23,19 +23,20 @@ public class TgaSampleV1 {
 
         ExecutorService executorService = Executors.newFixedThreadPool(PropertyUtil.getInt("thread.max"));
         //String uri = PropertyUtil.getString("tga.uri");
-        //String uri = "http://tga.qq.com/match/2017/pc_game.html?game=hyrz";
+        String uri = "http://tga.qq.com/match/2017/pc_game.html?game=hyrz";
         //String uri = "http://tga.qq.com/match/2017/pc_game.html?game=wzry";
         //String uri = "http://tga.qq.com/match/2017/pc_game.html?game=lol";
-        String uri = "http://tga.qq.com/match/2017/pc_game.html?game=cfm";
+        //String uri = "http://tga.qq.com/match/2017/pc_game.html?game=cfm";
         String videoUri = PropertyUtil.getString("video.uri");
         videoUri = videoUri.substring(0, videoUri.indexOf("time") + 5) + System.currentTimeMillis() / 1000 +
-                videoUri.substring(videoUri.indexOf("time") + 15, videoUri.length()- 1);
+                videoUri.substring(videoUri.indexOf("time") + 15, videoUri.length());
 
         double videoTime = PropertyUtil.getDouble("video.time.length") * 6.0;
+        String cookie = PropertyUtil.getString("http.cookie");
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < PropertyUtil.getInt("task.max"); i++) {
             executorService.execute(new Play(uri, videoUri, videoTime, videoDownSize, httpTimeout, exceptionStatus,
-                    autoIndex, PropertyUtil.getString("http.cookie")));
+                    autoIndex, cookie));
         }
 
         Thread.sleep(1000 * 60 * PropertyUtil.getInt("total.run.time"));

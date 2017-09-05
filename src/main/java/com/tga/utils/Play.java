@@ -51,7 +51,7 @@ public class Play implements Runnable {
         this.cookie = cookie;
         this.indexCookie = this.cookie + "; ts_last=" + uri_index + "; ts_uid=3310646517";
         
-        System.out.println("---------------------------------------------------------------");
+/*        System.out.println("---------------------------------------------------------------");
         System.out.println("url_index = "+ this.uri_index + " ");
         System.out.println("videoTime = "+ this.videoTime + " ");
         System.out.println("videoUri = "+ this.videoUri + " ");
@@ -60,7 +60,7 @@ public class Play implements Runnable {
         System.out.println("vKey = "+ this.vKey + " ");
         System.out.println("sId = "+ this.sId + " ");
         System.out.println("cookie = "+ this.cookie + " ");
-        System.out.println("indexCookie = "+ this.indexCookie + " ");
+        System.out.println("indexCookie = "+ this.indexCookie + " ");*/
     }
 
     @Override

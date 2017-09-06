@@ -49,7 +49,8 @@ public class Play implements Runnable {
         int flvIndex = videoUri.indexOf("flv");
         this.sId = videoUri.substring(flvIndex - 10, flvIndex - 1);
         this.cookie = cookie;
-        this.indexCookie = this.cookie + "; ts_last=" + uri_index + "; ts_uid=3310646517";
+        String ts_last= uri_index.split("\\?")[0].substring(7);
+        this.indexCookie = this.cookie + "; ts_last=" + ts_last + "; ts_uid=3310646517";
         
 /*        System.out.println("---------------------------------------------------------------");
         System.out.println("url_index = "+ this.uri_index + " ");

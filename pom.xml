@@ -77,7 +77,7 @@
                 </executions>
             </plugin>
 
-			<plugin>
+			<!--<plugin>
 				<groupId>com.jiujie</groupId>
 				<artifactId>code-hidding-plugin</artifactId>
 				<version>1.0</version>
@@ -93,7 +93,7 @@
 					<obfuscate>true</obfuscate>
 					<attach>true</attach>
 					<injar>tga-spider-1.0-jar-with-dependencies.jar</injar>
-					<!-- <injars>classes</injars> -->
+					&lt;!&ndash; <injars>classes</injars> &ndash;&gt;
 					<attachArtifactClassifier>pg</attachArtifactClassifier>
 					<proguardInclude>${basedir}/proguard.conf</proguardInclude>
 					<outjar>tga-spider-pg.jar</outjar>
@@ -103,7 +103,7 @@
 					</libs>
 					<addMavenDescriptor>true</addMavenDescriptor>
 				</configuration>
-			</plugin>
+			</plugin>-->
         </plugins>
 
     </build>

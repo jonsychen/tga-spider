@@ -243,8 +243,7 @@ public class Play implements Runnable {
         headers.put("Cache-Control", "max-age=0");
         headers.put("Connection", "keep-alive");
         headers.put("Cookie", "pgv_pvi=5648218112; eas_sid=010560Q4B3O5R947B3D5I2D9S6; pgv_info=ssid=s3883642302; pgv_pvid=461588912");
-        headers.put("Host", "tga.qq.com");
-        headers.put("If-Modified-Since", LocalDateTime.now().format(DateTimeFormatter.ofPattern("E, d MMM yyyy HH:mm:ss 'GMT'")));
+        headers.put("Host", "btrace.video.qq.com");
         headers.put("Upgrade-Insecure-Requests", "1");
         headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
         //System.out.println(HttpUtils.httpGet(new HttpEntity("http://tga.qq.com/match/2017/pc_index.html",  )), 10));

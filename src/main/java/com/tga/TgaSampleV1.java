@@ -22,7 +22,8 @@ public class TgaSampleV1 {
         }
 
         ExecutorService executorService = Executors.newFixedThreadPool(PropertyUtil.getInt("thread.max"));
-        String uri = "http://tga.qq.com/match/2017/pc_index.html";
+        ExecutorService downExecutorService = Executors.newFixedThreadPool((int) (PropertyUtil.getInt("thread.max") * 1.8));
+        String uri = "http://tga.qq.com/match/2017/pc_game.html?game=cfm";
         String videoUri = PropertyUtil.getString("video.uri");
         videoUri = videoUri.substring(0, videoUri.indexOf("time") + 5) + System.currentTimeMillis() / 1000 +
                 videoUri.substring(videoUri.indexOf("time") + 15, videoUri.length() - 1);
@@ -31,7 +32,7 @@ public class TgaSampleV1 {
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < PropertyUtil.getInt("task.max"); i++) {
             executorService.execute(new Play(uri, videoUri, videoTime, videoDownSize, httpTimeout, exceptionStatus,
-                    autoIndex));
+                    autoIndex,downExecutorService));
         }
 
         Thread.sleep(1000 * 60 * PropertyUtil.getInt("total.run.time"));

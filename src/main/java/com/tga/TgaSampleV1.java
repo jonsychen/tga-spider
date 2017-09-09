@@ -22,7 +22,7 @@ public class TgaSampleV1 {
         }
 
         ExecutorService executorService = Executors.newFixedThreadPool(PropertyUtil.getInt("thread.max"));
-        String uri = "http://tga.qq.com/match/2017/pc_index.html";
+        String uri = "http://tga.qq.com/match/2017/pc_game.html?game=cfm";
         String videoUri = PropertyUtil.getString("video.uri");
         videoUri = videoUri.substring(0, videoUri.indexOf("time") + 5) + System.currentTimeMillis() / 1000 +
                 videoUri.substring(videoUri.indexOf("time") + 15, videoUri.length() - 1);

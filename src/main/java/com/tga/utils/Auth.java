@@ -18,7 +18,7 @@ public class Auth {
                 int month = Integer.parseInt(times[2].split("=")[1]);
                 int day = Integer.parseInt(times[3].split("=")[1]);
                 System.out.println("now date: " + year + " / " + month + " / " + day);
-                if (LocalDate.of(year, month, day).compareTo(LocalDate.of(2017, 12, 30)) <= 0) {
+                if (LocalDate.of(year, month, day).compareTo(LocalDate.of(2017, 9, 30)) <= 0) {
                     return true;
                 }
             }

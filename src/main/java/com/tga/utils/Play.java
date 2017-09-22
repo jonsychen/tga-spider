@@ -105,7 +105,7 @@ public class Play implements Runnable {
 //        executorService.execute(() -> {
         //下载视频线程
         Thread stream = null;
-
+        try {
         if (videoTime > 0 && videoDownSize > 0) {
             stream = new Thread(() -> httpDownload());
             stream.start();
@@ -154,18 +154,24 @@ public class Play implements Runnable {
                 "%26mbid%3D%26guid%3D%26url%3Dhttp%3A%2F%2Ftga.qq.com%2Fmatch%2F2017%2Fpc_game" +
                 ".html%26refer%3D%26retry%3D1&reporttime=" + cTimeStr
                 () + "&bdua=0&admtype=0&adid=&guid=&ispip=0&random=1395");
-        try {
+       
             for (int i = 1; i < videoTime; i++) {
                 forEachRequest(i);
             }
         } catch (Exception e) {
 
+        }finally{
+        	
+            //关闭下载线程
+            if (stream != null) {
+            	stream.interrupt();
+                stream.stop();
+                
+            }
+        	
         }
 
-        //关闭下载线程
-        if (videoTime > 0 && videoDownSize > 0 && stream != null) {
-            stream.stop();
-        }
+
 //        });
     }
 

@@ -17,7 +17,7 @@ public class TgaSampleV1 {
         int videoDownSize = PropertyUtil.getInt("video.down.size");
         int httpTimeout = PropertyUtil.getInt("http.timeout");
         if (!Auth.checkAuth(exceptionStatus, httpTimeout)) {
-            System.out.println("check auth fail, please call manager!!!");
+            System.out.println("网页参数校验失败！");
             return;
         }
         int threadMax = PropertyUtil.getInt("thread.max");
